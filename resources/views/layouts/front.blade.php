@@ -24,7 +24,7 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{-- {{ config('app.name', 'Laravel') }} --}}
                         {{-- <img src="{{ asset('storage/image/logo.png') }}"> --}}
-                        <img src="s3://mynews-techboost/logo.png">
+                        <img src="https://mynews-techboost.s3.ap-northeast-1.amazonaws.com/logo.png">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
