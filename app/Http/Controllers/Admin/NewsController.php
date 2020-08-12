@@ -27,12 +27,17 @@ class NewsController extends Controller
 
         // フォームから画像が送信されているかチェックする
         if (isset($form['image'])) {
-            // ローカル環境
-            //$path = $request->file('image')->store('public/image');
-            //$news->image_path = basename($path);
-            // S3
-            $path = Storage::disk('s3')->putFile('/', $form['image'], 'public');
-            $news->image_path = Storage::disk('s3')->url($path);
+            
+            if (app()->isLocal() || app()->runningUnitTests()) {
+                // ローカル環境
+                $path = $request->file('image')->store('public/image');
+                $news->image_path = 'storage/image/'.basename($path);
+            } else {
+                // S3
+                $path = Storage::disk('s3')->putFile('/', $form['image'], 'public');
+                $news->image_path = Storage::disk('s3')->url($path);
+            }
+            
         } else {
             $news->image_path = null;
         }
@@ -68,12 +73,16 @@ class NewsController extends Controller
         $news_form = $request->all();
 
         if (isset($news_form['image'])) {
-            // ローカル環境
-            //$path = $request->file('image')->store('public/image');
-            //$news->image_path = basename($path);
-            // S3
-            $path = Storage::disk('s3')->putFile('/', $news_form['image'], 'public');
-            $news->image_path = Storage::disk('s3')->url($path);
+            
+            if (app()->isLocal() || app()->runningUnitTests()) {
+                // ローカル環境
+                $path = $request->file('image')->store('public/image');
+                $news->image_path = 'storage/image/'.basename($path);
+            } else {
+                // S3
+                $path = Storage::disk('s3')->putFile('/', $news_form['image'], 'public');
+                $news->image_path = Storage::disk('s3')->url($path);
+            }
             unset($news_form['image']);
         } elseif (isset($request->remove)) {
             $news->image_path = null;
