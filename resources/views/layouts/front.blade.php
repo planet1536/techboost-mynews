@@ -26,7 +26,7 @@
                         @if (app()->isLocal() || app()->runningUnitTests())
                             <img src="{{ asset('storage/image/logo.png') }}">
                         @else
-                            <img src="{{ Storage::disk('s3')->url("public/logo.png") }}">
+                            <img src="{{ Storage::disk('s3')->url("logo.png") }}">
                         @endif                        
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
