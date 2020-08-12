@@ -10,6 +10,7 @@ class NewsController extends Controller
     public function index(Request $request)
     {
         $posts = News::all()->sortByDesc('updated_at');
+        $logo_image = Storage::disk('s3')->url("logo.png");
 
         if (count($posts) > 0) {
             $headline = $posts->shift();
@@ -17,6 +18,6 @@ class NewsController extends Controller
             $headline = null;
         }
 
-        return view('news.index', ['headline' => $headline, 'posts' => $posts]);
+        return view('news.index', ['logo_image' => $logo_image, 'headline' => $headline, 'posts' => $posts]);
     }
 }
